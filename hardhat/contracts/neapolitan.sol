@@ -1907,8 +1907,8 @@ contract Neapolitan is ERC721, Ownable {
 
     bool public saleIsActive = false;
 
-    address payable beneficiary1 = address(0xa04562f2659fa2a49cc2490c9ec9223b7c990bd8); // Andrew
-    address payable beneficiary2 = address(0x505D07C4a6605E90300FD81cA6797C17108EBA51); // Caleb
+    address payable beneficiary1 = payable(0xA04562f2659fa2A49CC2490c9eC9223b7C990BD8); // Andrew
+    address payable beneficiary2 = payable(0x505D07C4a6605E90300FD81cA6797C17108EBA51); // Caleb
 
     constructor() ERC721("Neapolitans", "NEA") {
     }
@@ -1921,12 +1921,12 @@ contract Neapolitan is ERC721, Ownable {
         beneficiary2.transfer(halfBalance);
     }
 
-    function gift(address[] calldata to) external override onlyOwner {
+    function gift(address[] calldata to) external onlyOwner {
       require(totalSupply() < MAX_NEAPOLITANS, 'All tokens have been minted');
       require(totalGiftSupply + to.length <= MAX_GIFT, 'Not enough tokens left to gift');
 
       for(uint256 i = 0; i < to.length; i++) {
-        /// @dev We don't want our tokens to start at 0 but at 1.
+        // @dev We don't want our tokens to start at 0 but at 1.
         uint256 tokenId = totalGiftSupply + 1;
 
         totalGiftSupply += 1;
