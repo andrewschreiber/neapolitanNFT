@@ -13,19 +13,27 @@
 
 const attributesArray = [
   {
-    attribute: "Chocolate",
+    attribute: "DarkCherry",
     odds: 1000, // Out of 10k
   },
   {
-    attribute: "Vanilla",
+    attribute: "TuttiFrutti",
     odds: 1000, // Out of 10k
   },
   {
-    attribute: "Strawberyy",
+    attribute: "PomegranateSorbet",
     odds: 1000, // Out of 10k
   },
   {
-    attribute: "Coffee",
+    attribute: "ChocolateOrange",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Rhubarb",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "CitrusPunch",
     odds: 1000, // Out of 10k
   },
 ];
@@ -40,7 +48,7 @@ const avatarHash = {};
 const layerIndexMap = {};
 
 const isTest = false;
-const exportEnabled = false;
+const exportEnabled = true;
 
 const startTime = Date.now();
 const doc = app.activeDocument;
@@ -51,7 +59,7 @@ const numberOfLayers = allLayers.length;
 const folderName = "ImageFolders/GeneratedImages_" + startTime;
 const extensionName = ".png";
 const projectName = "Neapolitan";
-const totalAvatars = 10000;
+const totalAvatars = 40;
 
 var f = new Folder("/Users/andrewschreiber/git/neapolitanNFT/" + folderName);
 if (!f.exists) f.create();
@@ -126,7 +134,6 @@ function hideAllLayers() {
 
 /// Taking in a object that describes the attributes and then properly activating the layers in PS.
 function exportAvatarFromPhotoshop(avatar, count) {
-  const type = avatar.type;
   const atts = avatar.atts;
 
   const layers = [];
@@ -137,9 +144,22 @@ function exportAvatarFromPhotoshop(avatar, count) {
     var thisAtt = atts[i];
     attString = attString + "[" + thisAtt + "]";
 
-    var indexOfUnskinned = layerIndexMap[unskined];
+    var side = "";
+    if (i === 0) {
+      side = "L ";
+    } else if (i === 1) {
+      side = "M ";
+    } else if (i === 2) {
+      side = "R ";
+    } else {
+      throw new Error("Never found a matching attribute");
+    }
 
-    layers.push(indexOfUnskinned);
+    var layerNameInPhotoshop = side + thisAtt;
+
+    var layerIndex = layerIndexMap[layerNameInPhotoshop];
+    // TODO: Catch if not a valid attribute / layer
+    layers.push(layerIndex);
   }
 
   for (var i = 0; i < layers.length; i++) {
@@ -154,7 +174,7 @@ function exportAvatarFromPhotoshop(avatar, count) {
 }
 
 function hashForAvatar(type, attributes) {
-  attributes.sort();
+  // attributes.sort();
   var total = "";
   for (var i = 0; i < attributes.length; i++) {
     total = total + attributes[i];
@@ -174,10 +194,10 @@ function runGenerator() {
 
     while (random > attCounter - 1) {
       var attObjectSelected = attributesArray[i];
-      var selectedCount = +attObjectSelected[countString];
+      var selectedCount = +attObjectSelected["odds"];
       var name = attObjectSelected["attribute"];
       if (selectedCount + attCounter >= random) {
-        // consoleLogFile.writeln("Selected " + name);
+        consoleLogFile.writeln("Selected " + name);
 
         return attObjectSelected;
       } else {
@@ -201,6 +221,7 @@ function runGenerator() {
 
     for (var i = 0; i < existingAtts.length; i++) {
       if (existingAtts[i]["attribute"] === attribute) {
+        consoleLogFile.writeln("[Filter] existing att", attribute);
         return false;
       }
     }
@@ -217,6 +238,8 @@ function runGenerator() {
     const hash = hashForAvatar(type, attributes);
 
     if (avatarHash[hash]) {
+      consoleLogFile.writeln("[Filter] Not unique", hash, avatarHash[hash]);
+
       return false;
     } else {
       avatarHash[hash] = 1;
@@ -231,20 +254,27 @@ function runGenerator() {
       var att = getAtt();
       if (filterAtt(att, type, arr)) {
         arr.push(att);
+        i++;
+      }
+      if (i === attCount && !isUniqueAvatar(type, arr)) {
+        i = 0;
+        arr = [];
       }
     }
+
     return arr;
   }
 
   // MAIN FUNCTION
 
   const attNameCount = {};
+  var fullCount = 0;
 
   for (var i = 0; i < totalAvatars; i++) {
-    var attObjects = getAtts(3, null, []);
-    // consoleLogFile.writeln(
-    // "New Avatar: " + i + " att objects count: " + attObjects.length
-    // );
+    var attObjects = getAtts(3, "", []);
+    consoleLogFile.writeln(
+      "New Avatar: " + i + " att objects count: " + attObjects.length
+    );
 
     var attributes = [];
     for (var j = 0; j < attObjects.length; j++) {
@@ -253,7 +283,7 @@ function runGenerator() {
       var attName = ob["attribute"];
       attributes.push(attName);
     }
-    var fullCount = i + totalCount;
+    fullCount++;
     var avatar = {
       atts: attributes,
       count: fullCount,
@@ -261,9 +291,9 @@ function runGenerator() {
     };
 
     avatars.push(avatar);
-    // consoleLogFile.writeln(
-    // "Saved avatar: " + fullCount + " atts:" + attributes.length
-    // );
+    consoleLogFile.writeln(
+      "Saved avatar: " + fullCount + " atts:" + attributes.length
+    );
   }
   consoleLogFile.writeln("----- All avatars generated ----");
 
