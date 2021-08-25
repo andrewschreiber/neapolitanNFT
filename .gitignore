@@ -3,3 +3,4 @@ hardhat/artifacts
 hardhat/cache
 .DS_Store
 ImageFolders/
+.idea/

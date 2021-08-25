@@ -1,101 +1,112 @@
 .red{
-Cherry
-#D2042D
-Black Cherry
-#52253a
-Cranberry
-#950714
-Grapefruit
-#E0707C
-Pomegranate
+
+Pomegranate XXX
 #660c21
-Raspberry
-#e30b5d
-Rhubarb
+Rhubarb XXX
 #77202f
-Strawberry
+Cranberry XXX
+#950714
+Cherry XXX
+#D2042D
+
+Black Cherry XXX
+#52253a
+Date
+#5F2020
+
+}
+.pink{
+Raspberry XXX
+#e30b5d
+Mulberry XXX
+#c54b8c
+Strawberry XXX
 #fc5a8d
-Watermelon
-#d23b68
-Peppermint
-#d23b68
-Lychee Jelly
-#dc5349
-Dragon Fruit
+DragonFruit XXX
 #f35d8b
+Watermelon XXX
+#d23b68
+Peppermint XXX
+#DF3F48
+Lychee Jelly XXX
+#dc5349
+Grapefruit XXX
+#E0707C
+
+
 }
 
 .orange{
-Peach
-#FFE5B4
-Apricots
-#FBCEB1
-Cantaloupe
-#f4ae72
 Clementine
 #eb5e00
+Tangerine XXX
+#f28500
+Orange XXX
+#FFA500
 Kumquat
 #fb9912
 Mango
 #F4BB44
+Cantaloupe
+#f4ae72
 Nectarine
 #ECCC87
 Papaya
 #ffc281
-Orange
-#FFA500
-Tangerine
-#f28500
+Peach
+#FFE5B4
+Apricots
+#FBCEB1
 }
 
 .yellow{
-Banana
-#ffe135
-Lemon
-#fff44f
-Kumquat
-#fb9912
-Pineapple
-#FFFF65
-Honey
-#EBA937
-Caramel
+Caramel XXX
 #85461e
-Cake Batter
+Kumquat XXX
+#fb9912
+Honey XXX
+#EBA937
+Banana XXX
+#ffe135
+Lemon XXX
+#fff44f
+Pineapple XXX
+#FFFF65
+CakeBatter XXX
 #fce0b9
 }
 
 .green{
-Green Grapes
-#d8da7a
-Honeydew Melon
-#f0fff0
-Mint
+Mint XXX
 #3eb489
-Lime
+Lime XXX
 #BFFF00
-Pear
+Pear XXX
 #d1e231
-Guava
-#98a57f
-Prickly Pear
-#69916e
+Green Apple
+#8db600
 Pummelo
 #96a53c
+Green Grapes XXX
+#d8da7a
+Guava
+#98a57f
+PricklyPear XXX
+#69916e
+HoneydewMelon XXX
+#f0fff0
 }
 
 .blue{
-Blackberry
+Blackberry XXX
 #32001B
-Blueberry
-#4F86F7
-Blackcurrant
+Blackcurrant XXX
 #2e183b
 Elterberry
 #17182b
-Mulberry
-#c54b8c
-Bubble Gum
+Blueberry XXX
+#4F86F7
+Bubble Gum XXX
 #1ddce3
 }
 
@@ -107,51 +118,57 @@ Prunes
 }
 
 .brown{
-Chocolate Chip  - almost black
-#685a4e
-Date
-#5F2020
-Fudge
-#493338
-Brownie
+Brownie XXX
 #362708
+
+Fudge XXX
+#493338
+
+ChocolateChip  - almost black XXX
+#685a4e
 Mocha
 #967969
-Espresso
+Espresso XXX
 #67564e
-Chocolate  - mid dark
+Chocolate  - mid dark XXX
 #7B3F00
-Coffee
+
+Coffee XXX
 #6f4e37
-Pretzel
-#bb8e4c
-Peanut Butter
-#Peanut Butter
-Almond
-#EED9C4
-Cookie Dough  - light
-#f7e4c4
-Gram Cracker
+GramCracker XXX
 #a57d50
-Custard
-#ebdcc3
-Pecan
-#c1b094
-Peanut
+Toasted Coconut XXX
+#8f725d
+Pretzel       XXX
+#bb8e4c
+Peanut XXX
 #cd9141
+PeanutButter  XXX
+#Peanut Butter
+
+
+
+
+
 }
 
 .white{
-Toasted Coconut
-#8f725d
-Vanilla
+Pecan XXX
+#c1b094
+Vanilla XXX
 #F3E5AB
-Marshmallow
+Custard XXX
+#ebdcc3
+Marshmallow XXX
 #f9f5ec
-French Vanilla
+FrenchVanilla XXX
 #E8E0C5
-Old Fashioned Vanilla
+OldFashionedVanilla XXX
 #F3E5AB
-Sea Salt
+SeaSalt XXX
 #cdd7ce
+Almond XXX
+#EED9C4
+CookieDough  - light XXX
+#f7e4c4
 }
