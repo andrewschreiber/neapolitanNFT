@@ -1,1 +1,4 @@
 hardhat/.env
+hardhat/artifacts
+hardhat/cache
+.DS_Store

@@ -1,7 +1,7 @@
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-// require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-waffle");
 require("dotenv").config();
 
 const INFURA_URL_RINKEBY =
@@ -37,7 +37,7 @@ module.exports = {
         balance: "100000000000000000000",
       },
       gas: 12450000, // Maximum a contract can use
-      gasPrice: 10000000000,
+      gasPrice: 194071069761,
     },
     develop: {
       // Fresh local blockchain

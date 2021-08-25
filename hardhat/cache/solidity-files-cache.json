@@ -1,10 +1,10 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/andrewschreiber/git/neapolitanNFT/hardhat/contracts/neapolitan.sol": {
-      "lastModificationDate": 1629833928972,
-      "contentHash": "48f9480940e821decb835fa206dec859",
-      "sourceName": "contracts/neapolitan.sol",
+    "/Users/andrewschreiber/git/neapolitanNFT/hardhat/contracts/Neapolitans.sol": {
+      "lastModificationDate": 1629838158655,
+      "contentHash": "f03d4561a8e6acec577fb283661ce043",
+      "sourceName": "contracts/Neapolitans.sol",
       "solcConfig": {
         "version": "0.7.0",
         "settings": {
@@ -57,7 +57,7 @@
         "IERC721Enumerable",
         "IERC721Metadata",
         "IERC721Receiver",
-        "Neapolitan",
+        "Neapolitans",
         "Ownable",
         "SafeMath",
         "Strings"
