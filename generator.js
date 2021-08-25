@@ -1,38 +1,45 @@
-// const exampleRebel = { type: "M A", atts: ["Beanie", "Cigarette"] };
+// Notes:
+// Currently difficult to accurately estimate likelihood, as counts may sum to any kind of number
+// Any increase in count of one reduces the likelihood of some of the rest
+// Maybe this is okay. Probably just want to log the odds of each attribute at the very beginning. That way you can continue to play with the probabilities.
+// How could a "fixed" probability be set? Say you don't want the odds of this particular one to drop.
+// Could have a fixed property. Assume the odds are out of 10k. Now if the sum of all the odds properties is greater or lesser than 10k, if fixed the odds scale to maintain the original ratio.
+// For example, say odds = 750. If the sum of odds is only 5k, then that odds drops to 375. But wait, that changes the sum.
+// There is probably an algebraic solution to this, or you could just binary search then round once you get a margin of less than 1.
+// Filtering also messes with the odds. Highly filtered traits will be less likely.
+// Perhaps projects first sample by category (hats, glasses, etc), then have odds within each category. That way the category sums reasonably and you don't have obscure competition between distant attributes.
+
+// const categoriesArray = [{ cat: "L", odds: 10000 }];
 
 const attributesArray = [
   {
-    attribute: "Earring",
-    species: "All",
-    gender: "Both",
-    cat: "Ear",
-    count: 2459,
-    maleCount: 1000,
-    femaleCount: 1000,
-    ordering: 9,
+    attribute: "Chocolate",
+    count: 2459, // replace with "odds"
   },
 ];
 
 var maleNumberOfAttributes = 0; // computed
 var femaleNumberOfAttributes = 0;
 
-const rebels = [];
-const rebelHash = {};
+const avatars = [];
+const avatarHash = {};
+const layerIndexMap = {};
 
-function main() {
-  runGenerator();
-}
+const isTest = false;
+const exportEnabled = false;
 
 const startTime = Date.now();
 const doc = app.activeDocument;
 const docName = doc.name.replace(/\.[^\.]+$/, "");
 const docPath = doc.path;
-const folderName = "GeneratedImages";
-const extensionName = ".png";
-const isTest = false;
-const layerIndexMap = {};
 const allLayers = doc.layers;
 const numberOfLayers = allLayers.length;
+const folderName = "ImageFolders/GeneratedImages_" + startTime;
+const extensionName = ".png";
+const projectName = "Neapolitans";
+
+var f = new Folder("/Users/andrewschreiber/git/neapolitanNFT/" + folderName);
+if (!f.exists) f.create();
 
 var consoleLogFile = File(
   docPath + "/" + folderName + "/" + startTime + "_generatorlog.txt"
@@ -42,13 +49,21 @@ consoleLogFile.open("e", "TEXT", "????");
 consoleLogFile.writeln("There are " + numberOfLayers + " layers");
 consoleLogFile.writeln("Start timestamp " + startTime);
 hideAllLayers();
+runGenerator();
 
+// Helpers
 function inArray(item, array) {
   var length = array.length;
   for (var i = 0; i < length; i++) {
     if (array[i] === item) return true;
   }
   return false;
+}
+
+function pad(num, size) {
+  num = num.toString();
+  while (num.length < size) num = "0" + num;
+  return num;
 }
 
 function mapCryptoPunksAttNameToPSDLayer(cpName) {
@@ -68,7 +83,8 @@ function exportVisibleLayers(filename) {
       folderName +
       "/" +
       test +
-      "rebelpunk-" +
+      projectName +
+      "-" +
       filename +
       extensionName
   );
@@ -90,74 +106,26 @@ function hideAllLayers() {
   // consoleLogFile.writeln("All Layers Hidden");
 }
 
-function pad(num, size) {
-  num = num.toString();
-  while (num.length < size) num = "0" + num;
-  return num;
-}
-
-// Taking in a object that describes the attributes and then properly activating the layers in PS.
-function exportRebelFromPhotoshop(rebel, count) {
-  const type = rebel.type;
-  const atts = rebel.atts;
+/// Taking in a object that describes the attributes and then properly activating the layers in PS.
+function exportAvatarFromPhotoshop(avatar, count) {
+  const type = avatar.type;
+  const atts = avatar.atts;
 
   const layers = [];
   var attString = "[" + type.replace(/\s+/g, "") + "]";
 
-  layers.push(layerIndexMap["M U Base"]);
-
-  const skinType = isMale ? "U" : type.substr(2, 1);
-  if (lipArr[0] && lipArr[1]) {
-    var baseLipType = type.substr(0, 1) + " " + skinType + " ";
-    // consoleLogFile.writeln("lip combo ", baseLipType);
-    layers.push(
-      layerIndexMap[
-        mapCryptoPunksAttNameToPSDLayer(
-          baseLipType + lipArr[0] + "+" + lipArr[1]
-        )
-      ]
-    );
-  } else if (lipArr[0] && !lipArr[1]) {
-    var baseLipType = type.substr(0, 1) + " U ";
-    layers.push(
-      layerIndexMap[mapCryptoPunksAttNameToPSDLayer(baseLipType + lipArr[0])]
-    );
-  } else if (lipArr[1] && !lipArr[0]) {
-    var baseLipType = type.substr(0, 1) + " " + skinType + " ";
-
-    layers.push(
-      layerIndexMap[mapCryptoPunksAttNameToPSDLayer(baseLipType + lipArr[1])]
-    );
-  }
-
   for (var i = 0; i < atts.length; i++) {
     var thisAtt = atts[i];
     attString = attString + "[" + thisAtt + "]";
-    var unskined = type.charAt(0) + " U " + thisAtt;
-    var skined = type + " " + thisAtt;
 
-    // TODO: Handle Smile / Frown + lipstick case
+    // L Chocolate
+    // M Chocolate
+    // R Chocolate
 
     var indexOfUnskinned =
       layerIndexMap[mapCryptoPunksAttNameToPSDLayer(unskined)];
 
-    if (
-      !inArray(thisAtt, [
-        "BlackLipstick",
-        "RedLipstick",
-        "PurpleLipstick",
-        "Smile",
-        "Frown",
-      ])
-    ) {
-      if (indexOfUnskinned) {
-        // consoleLogFile.writeln("Show unskinned: " + unskined);
-        layers.push(indexOfUnskinned);
-      } else {
-        // consoleLogFile.writeln("Show skinned: " + skined);
-        layers.push(layerIndexMap[mapCryptoPunksAttNameToPSDLayer(skined)]);
-      }
-    }
+    layers.push(indexOfUnskinned);
   }
 
   for (var i = 0; i < layers.length; i++) {
@@ -172,12 +140,7 @@ function exportRebelFromPhotoshop(rebel, count) {
   }
 }
 
-function exportRebelToJSON(rebel) {
-  var dictstring = JSON.stringify(dict);
-  fs.writeFile(rebel["count"] + ".json", dictstring);
-}
-
-function hashForRebel(type, attributes) {
+function hashForAvatar(type, attributes) {
   attributes.sort();
   var total = "";
   for (var i = 0; i < attributes.length; i++) {
@@ -189,10 +152,9 @@ function hashForRebel(type, attributes) {
 }
 
 function runGenerator() {
-  // console.log('Starting rebel generator');
-  const totalRebels = 10000;
+  const totalAvatars = 10000;
 
-  const rebelTypes = {
+  const avatarTypes = {
     "M A": 1133,
     "M L": 1133,
     "M M": 1133,
@@ -208,7 +170,7 @@ function runGenerator() {
     "M N": 1,
     "F N": 8,
   };
-  const rebelTypes1 = {
+  const avatarTypes1 = {
     "M A": 100,
     "M L": 100,
     "M M": 100,
@@ -429,55 +391,32 @@ function runGenerator() {
     }
   }
 
-  function isUniqueRebel(type, attObjects) {
+  function isUniqueAvatar(type, attObjects) {
     var attributes = [];
     for (var j = 0; j < attObjects.length; j++) {
       var ob = attObjects[j];
       var attName = ob["attribute"];
       attributes.push(attName);
     }
-    const hash = hashForRebel(type, attributes);
+    const hash = hashForAvatar(type, attributes);
     // consoleLogFile.writeln("GOT HASH " + hash);
 
-    if (rebelHash[hash]) {
+    if (avatarHash[hash]) {
       return false;
     } else {
-      rebelHash[hash] = 1;
+      avatarHash[hash] = 1;
       return true;
     }
   }
 
   function getAtts(attCount, type, existingAtts) {
     var arr = existingAtts;
-
     var i = 0;
-
     while (i < attCount) {
-      var isMale = type.indexOf("F") === -1;
       var att = getAtt(isMale);
       if (filterAtt(att, type, arr)) {
         arr.push(att);
-        if (i !== attCount - 1 || containsRebelAttributes(type, arr)) {
-          i++;
-          if (i === attCount && !isUniqueRebel(type, arr)) {
-            // consoleLogFile.writeln("FILTERED COPY REBEL");
-            i = 0;
-            arr = [];
-          } else {
-            // consoleLogFile.writeln(
-            // "Incremented count " + i + " with att " + att
-            // );
-            logAdded(att["attribute"], isMale);
-          }
-        } else {
-          arr.pop();
-          // consoleLogFile.writeln("Non rebel att " + att);
-        }
       }
-      // var nextAttArray = getAtts(1, type, existingAtts);
-      // var nextAtt = nextAttArray[nextAttArray.length - 1];
-      // consoleLogFile.writeln('pushed recursive att ' + nextAtt['attribute']);
-      // arr.push(nextAtt);
     }
     return arr;
   }
@@ -488,12 +427,12 @@ function runGenerator() {
 
   const attNameCount = {};
 
-  for (generatedType in rebelTypes) {
-    for (var i = 0; i < rebelTypes[generatedType]; i++) {
+  for (generatedType in avatarTypes) {
+    for (var i = 0; i < avatarTypes[generatedType]; i++) {
       var attCount = getAttCount(generatedType);
       var attObjects = getAtts(attCount, generatedType, []);
       // consoleLogFile.writeln(
-      // "New Rebel: " + i + " att objects count: " + attObjects.length
+      // "New Avatar: " + i + " att objects count: " + attObjects.length
       // );
 
       var attributes = [];
@@ -504,45 +443,28 @@ function runGenerator() {
         attributes.push(attName);
       }
       var fullCount = i + totalCount;
-      var rebel = {
+      var avatar = {
         type: generatedType,
         atts: attributes,
         count: fullCount,
-        name: "RebelPunk #" + fullCount,
+        name: projectName + " #" + fullCount,
       };
 
-      rebels.push(rebel);
+      avatars.push(avatar);
       // consoleLogFile.writeln(
-      // "Saved rebel: " + fullCount + " atts:" + attributes.length
+      // "Saved avatar: " + fullCount + " atts:" + attributes.length
       // );
     }
-    totalCount = totalCount + rebelTypes[generatedType];
+    totalCount = totalCount + avatarTypes[generatedType];
   }
-  consoleLogFile.writeln("----- All rebels generated ----");
+  consoleLogFile.writeln("----- All avatars generated ----");
 
-  shuffleArray(rebels);
-  for (var i = 0; i < rebels.length; i++) {
-    var reb = rebels[i];
-    // exportRebelFromPhotoshop(reb, i);
-  }
-
-  for (var i = 0; i < attributesArray.length; i += 1) {
-    var t = attributesArray[i];
-    var att = t["attribute"];
-    var total = +maleAdded[att] + +femaleAdded[att];
-
-    var l =
-      att +
-      "| original: " +
-      t["count"] +
-      "| total: " +
-      total +
-      "| m total: " +
-      maleAdded[att] +
-      "| f total: " +
-      femaleAdded[att] +
-      "\n";
-    consoleLogFile.writeln(l);
+  shuffleArray(avatars);
+  for (var i = 0; i < avatars.length; i++) {
+    var reb = avatars[i];
+    if (exportEnabled) {
+      exportAvatarFromPhotoshop(reb, i);
+    }
   }
 
   const doneTime = Date.now();
@@ -552,4 +474,3 @@ function runGenerator() {
   );
   alert("Done running generator after " + workTime / 1000 + "Seconds");
 }
-main();
