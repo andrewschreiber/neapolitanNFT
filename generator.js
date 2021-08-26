@@ -13,19 +13,107 @@
 
 const attributesArray = [
   {
-    attribute: "DarkCherry",
+    attribute: "Blueberry",
+    odds: 20, // Out of 10k
+  },
+  {
+    attribute: "BlueBubblegum",
+    odds: 20, // Out of 10k
+  },
+  {
+    attribute: "SeaSalt",
+    odds: 20, // Out of 10k
+  },
+  {
+    attribute: "Blackcurrant",
+    odds: 200, // Out of 10k
+  },
+  {
+    attribute: "Blackberry",
+    odds: 200, // Out of 10k
+  },
+  {
+    attribute: "Plumb",
+    odds: 200, // Out of 10k
+  },
+  {
+    attribute: "Macaron",
+    odds: 200, // Out of 10k
+  },
+  {
+    attribute: "PinkBubblegum",
+    odds: 200, // Out of 10k
+  },
+  {
+    attribute: "JellyBean",
+    odds: 200, // Out of 10k
+  },
+  {
+    attribute: "Sprinkles",
+    odds: 200, // Out of 10k
+  },
+  {
+    attribute: "Apple",
     odds: 1000, // Out of 10k
   },
   {
-    attribute: "TuttiFrutti",
+    attribute: "Lime",
     odds: 1000, // Out of 10k
   },
   {
-    attribute: "PomegranateSorbet",
+    attribute: "Mint",
     odds: 1000, // Out of 10k
   },
   {
-    attribute: "ChocolateOrange",
+    attribute: "PricklyPear",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Pear",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "HoneydewMelon",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Citrus",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Pomegranate",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Mulberry",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Strawberry",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Dragonfruit",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Grapefruit",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "BlackCherry",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Watermelon",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Raspberry",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Cherry",
     odds: 1000, // Out of 10k
   },
   {
@@ -33,7 +121,107 @@ const attributesArray = [
     odds: 1000, // Out of 10k
   },
   {
-    attribute: "CitrusPunch",
+    attribute: "LycheeJelly",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Brownie",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Pretzel",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "PeanutButter",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "ToastedCoconut",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "ChocolateChip",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Fudge",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "DarkChocolate",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Chocolate",
+    odds: 1400, // Out of 10k
+  },
+  {
+    attribute: "MilkChocolate",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Coffee",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "GramCracker",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "CookieDough",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Caramel",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Honey",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Banana",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Lemon",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Pineapple",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Almond",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "FrenchVanilla",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Marshmallow",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Tangerine",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Espresso",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "ButterPecan",
+    odds: 1200, // Out of 10k
+  },
+  {
+    attribute: "Espresso",
+    odds: 1000, // Out of 10k
+  },
+  {
+    attribute: "Vanilla",
     odds: 1000, // Out of 10k
   },
 ];
@@ -57,9 +245,8 @@ const docPath = doc.path;
 const allLayers = doc.layers;
 const numberOfLayers = allLayers.length;
 const folderName = "ImageFolders/GeneratedImages_" + startTime;
-const extensionName = ".png";
 const projectName = "Neapolitan";
-const totalAvatars = 40;
+const totalAvatars = 3333;
 
 var f = new Folder("/Users/andrewschreiber/git/neapolitanNFT/" + folderName);
 if (!f.exists) f.create();
@@ -103,7 +290,9 @@ function exportVisibleLayers(filename) {
   if (isTest) {
     test = "test";
   }
-  pngFile = File(
+  const extensionName = ".jpeg";
+
+  imgFile = File(
     docPath +
       "/" +
       folderName +
@@ -114,12 +303,16 @@ function exportVisibleLayers(filename) {
       filename +
       extensionName
   );
-  /** check if the PNG already exists or not - delete if so */
-  if (pngFile.exists) pngFile.remove();
-  /** save the PNG */
-  pngSaveOptions = new PNGSaveOptions();
-  pngSaveOptions.compression = 9;
-  doc.saveAs(pngFile, pngSaveOptions, true, Extension.LOWERCASE);
+  /** check if the image already exists or not - delete if so */
+  if (imgFile.exists) imgFile.remove();
+  /** save the image */
+  // pngSaveOptions = new PNGSaveOptions();
+  // pngSaveOptions.compression = 9;
+  // doc.saveAs(imgFile, pngSaveOptions, true, Extension.LOWERCASE);
+  //
+  jpgSaveOptions = new JPEGSaveOptions();
+  jpgSaveOptions.quality = 10;
+  doc.saveAs(imgFile, jpgSaveOptions, true, Extension.LOWERCASE);
 
   // consoleLogFile.writeln("File Exported: " + filename);
 }
@@ -158,12 +351,33 @@ function exportAvatarFromPhotoshop(avatar, count) {
     var layerNameInPhotoshop = side + thisAtt;
 
     var layerIndex = layerIndexMap[layerNameInPhotoshop];
-    // TODO: Catch if not a valid attribute / layer
+    consoleLogFile.writeln(
+      "Photoshop layer ",
+      layerNameInPhotoshop,
+      layerIndex
+    );
+
+    if (layerIndex === undefined) {
+      throw new Error("Invalid layer name: " + layerNameInPhotoshop);
+    }
+
     layers.push(layerIndex);
   }
 
+  // Hidden attribute
+  var iceCream = "IceCream4";
+  const ran = Math.floor(Math.random() * 4);
+  if (ran === 0) iceCream = "IceCream1";
+  else if (ran === 1) iceCream = "IceCream2";
+  else if (ran === 2) iceCream = "IceCream3";
+  const ice = layerIndexMap[iceCream];
+  layers.push(ice);
+
   for (var i = 0; i < layers.length; i++) {
-    allLayers[layers[i]].visible = true;
+    var l = layers[i];
+    consoleLogFile.writeln("Enabling layer ", l, i);
+
+    allLayers[l].visible = true;
   }
   const filename = pad(count, 4) + "-" + attString;
 
@@ -174,7 +388,7 @@ function exportAvatarFromPhotoshop(avatar, count) {
 }
 
 function hashForAvatar(type, attributes) {
-  // attributes.sort();
+  attributes.sort();
   var total = "";
   for (var i = 0; i < attributes.length; i++) {
     total = total + attributes[i];
@@ -242,6 +456,7 @@ function runGenerator() {
 
       return false;
     } else {
+      consoleLogFile.writeln("Unique hash ", hash);
       avatarHash[hash] = 1;
       return true;
     }
