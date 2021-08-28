@@ -4,3 +4,5 @@ hardhat/cache
 .DS_Store
 ImageFolders/
 .idea/
+.vscode/
+node_modules/

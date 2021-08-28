@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/andrewschreiber/neapolitanNFT/issues"
   },
-  "homepage": "https://github.com/andrewschreiber/neapolitanNFT#readme"
+  "homepage": "https://github.com/andrewschreiber/neapolitanNFT#readme",
+  "dependencies": {
+    "@pinata/sdk": "^1.1.23",
+    "lodash": "^4.17.21"
+  }
 }
