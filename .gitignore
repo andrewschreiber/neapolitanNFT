@@ -8,3 +8,4 @@ ImageFolders/
 node_modules/
 .env
 ipfs/ImageHashes.txt
+ipfs/generatedJson/
