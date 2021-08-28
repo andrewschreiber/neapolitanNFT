@@ -8,6 +8,14 @@ pinata
   .then((result) => {
     //handle successful authentication here
     console.log(result);
+
+    pinata
+      .pinList({
+        hashContains: "QmUJ8R4fgxEicPiRheUf9h34EQrYN8xMvwJQ2HqRnLYiYd",
+      })
+      .then((result) => {
+        console.log(result);
+      });
   })
   .catch((err) => {
     //handle error here

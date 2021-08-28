@@ -7,3 +7,4 @@ ImageFolders/
 .vscode/
 node_modules/
 .env
+ipfs/ImageHashes.txt

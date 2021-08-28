@@ -1,9 +1,37 @@
 const _ = require("lodash");
 const fs = require("fs");
+var path = require("path");
+const { split } = require("lodash");
+
+// To get text data:
+// Install IPFS, run daemon
+// ipfs refs <FOLDERCID>
+// ipfs ls <FOLDERCID> > ImageHashes.txt
+// Ideally we use pinata so its faster, took ~20m to download 700mb
 
 // const {
 // imageData,
 // } = require("./ImageFolders/Final_GeneratedImages_1629966248697");
+
+const projectPrefix = "Neapolitan-";
+const projectFolderCID = ""
+
+const filepath = path.join(__dirname, "ImageHashes.txt");
+
+var rawImageHashes = fs.readFileSync(filepath).toString().split("\n");
+// Example:
+// QmYGb8UCtLyamhpSGxkbWtnMNGHxJbsp9bLumgPueqmcpa 220559 Neapolitan-0000-[Vanilla][Banana][Apple].jpg
+
+const imageHashArr = [];
+
+for (const imageHash of rawImageHashes) {
+  if (!imageHash.includes(projectPrefix)) continue;
+  const splitArr = imageHash.split(" ");
+  const 
+  imageHashArr.push({ hash: splitArr[0], name: splitArr[2] });
+}
+
+console.log(imageHashArr[0]);
 
 let remapping = {
   CrazyHair: "Curly Hair",
