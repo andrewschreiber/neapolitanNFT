@@ -69,7 +69,7 @@ for (const imageHash of rawImageHashes) {
 
   // console.log(JSON.stringify(blob));
   fs.writeFileSync(
-    `ipfs/generatedJson/${index}.json`,
+    `ipfs/generatedJson/${+index}`,
     JSON.stringify(blob, null, 2),
     (err) => {
       if (err) {
