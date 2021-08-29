@@ -10,11 +10,10 @@ const {
 
 const { eth } = require("web3");
 const { ethers } = require("hardhat");
-// const { beforeEach, it } = require("mocha");
+const { describe, beforeEach, it } = require("mocha");
 const { expect, assert } = require("chai");
 
-// @ts-ignore
-describe("approve.spec.js", () => {
+describe("mint.spec.js", () => {
   let Neapolitans, neapolitans, owner, caleb, andrew, provider;
   let contractReadOnly, contractAsOwner, contractAsCaleb, contractAsAndrew;
 
@@ -31,15 +30,18 @@ describe("approve.spec.js", () => {
     contractAsAndrew = neapolitans.connect(andrew);
   });
 
-  it("Owner Successfully Approves Caleb", async () => {
+  it("Caleb successfully mints", async () => {
     await contractAsOwner.flipSaleState();
-    await contractAsCaleb.mintNeapolitan(1, {
+    await neapolitans.mintNeapolitan(1, {
       from: caleb.address,
-      value: ethers.utils.parseEther("10"),
+      value: ethers.utils.parseEther("0.01"),
     });
-    const tokenId = await contractAsOwner.tokenOfOwnerByIndex(caleb.address, 0);
-    await contractAsCaleb.approve(andrew.address, tokenId);
-    const getApproved = await contractAsCaleb.getApproved(tokenId);
-    expect(getApproved).to.equal(andrew.address);
+    const ownerNFTCount = await neapolitans.balanceOf(caleb.address);
+    console.log(`${ownerNFTCount}`);
+    expect(`${ownerNFTCount}`).to.equal("1");
+    // const tokenId = await contractAsOwner.tokenOfOwnerByIndex(caleb.address, 0);
+    // await contractAsCaleb.approve(andrew.address, tokenId);
+    // const getApproved = await contractAsCaleb.getApproved(tokenId);
+    // expect(getApproved).to.equal(andrew.address);
   });
 });

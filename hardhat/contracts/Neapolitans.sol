@@ -1942,7 +1942,7 @@ contract Neapolitans is ERC721, Ownable {
         _setBaseURI(baseURI);
     }
 
-    function mint(uint numberOfTokens) external payable {
+    function mintNeapolitan(uint numberOfTokens) external payable {
         require(saleIsActive, "Sale must be active to mint Neapolitans");
         require(numberOfTokens <= maxNeapolitanPurchase, "Can only mint 100 tokens at a time");
         require(totalSupply().add(numberOfTokens) <= MAX_NEAPOLITANS, "Purchase would exceed max supply of Neapolitans");
