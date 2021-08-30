@@ -1926,11 +1926,10 @@ contract Neapolitans is ERC721, Ownable {
       require(totalGiftSupply + to.length <= MAX_GIFT, 'Not enough tokens left to gift');
 
       for(uint256 i = 0; i < to.length; i++) {
-        // @dev We don't want our tokens to start at 0 but at 1.
-        uint256 tokenId = totalGiftSupply + 1;
+        uint256 mintIndex = totalSupply();
 
         totalGiftSupply += 1;
-        _safeMint(to[i], tokenId);
+        _safeMint(to[i], mintIndex);
       }
     }
     
@@ -1950,7 +1949,7 @@ contract Neapolitans is ERC721, Ownable {
         
         for(uint i = 0; i < numberOfTokens; i++) {
             uint mintIndex = totalSupply();
-            if (totalSupply() < MAX_NEAPOLITANS) {
+            if (mintIndex < MAX_NEAPOLITANS) {
                 _safeMint(msg.sender, mintIndex);
             }
         }
