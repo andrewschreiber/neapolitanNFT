@@ -32,7 +32,7 @@ describe("mint.spec.js", () => {
 
   it("Caleb successfully mints", async () => {
     await contractAsOwner.flipSaleState();
-    await neapolitans.mintNeapolitan(1, {
+    await contractAsCaleb.mintNeapolitan(1, {
       from: caleb.address,
       value: ethers.utils.parseEther("0.01"),
     });
