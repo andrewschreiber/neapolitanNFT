@@ -1906,6 +1906,7 @@ contract Neapolitans is ERC721, Ownable {
     uint256 public totalGiftSupply;
 
     bool public saleIsActive = false;
+    bool public uriLocked = false;
 
     address payable beneficiary1 = payable(0xA04562f2659fa2A49CC2490c9eC9223b7C990BD8); // Andrew
     address payable beneficiary2 = payable(0x505D07C4a6605E90300FD81cA6797C17108EBA51); // Caleb
@@ -1936,9 +1937,17 @@ contract Neapolitans is ERC721, Ownable {
     function flipSaleState() external onlyOwner {
         saleIsActive = !saleIsActive;
     }
+
+    function lockURI() external onlyOwner {
+        if(!uriLocked) {
+            uriLocked = true;
+        }
+    }
     
     function setBaseURI(string memory baseURI) external onlyOwner {
-        _setBaseURI(baseURI);
+        if(!uriLocked){
+            _setBaseURI(baseURI);
+        }
     }
 
     function mintNeapolitan(uint numberOfTokens) external payable {
